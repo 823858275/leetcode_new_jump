@@ -2,6 +2,7 @@
 # 如字符串为abb，则mask=1（01），第一位a为1，因为a只有1个
 # word[i,j]，如果该字符子串为最美子字符串，maski与maskj最多只有一个位不同
 # 因为从i到j，如果是最美，就最多1个奇数的字符，其他都为偶数字符
+# 用hash表存放mask，判断有没有相同的mask或者相差一个字符的mask
 class Solution:
     def wonderfulSubstrings(self, word: str) -> int:
         word_freq = {}

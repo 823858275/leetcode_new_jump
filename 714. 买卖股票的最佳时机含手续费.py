@@ -1,12 +1,18 @@
 from typing import List
 
 
+# 可以类似以往的股票题目，设置几个状态，使用动态规划
+# 贪心算法
+# 如果股票一直涨，就获取收益，更新buy，相当于更新了现在的成本
+# 如果跌了，并且超过了手续费，相当于股票清空，重新购买股票
 class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
-        f0, f1, f2 = -prices[0], 0, 0
+        profit = 0
+        buy = prices[0] + fee
         for i in range(1, len(prices)):
-            new_f0 = max(f0, f2 - prices[i])
-            new_f1 = f0 + prices[i]
-            new_f2 = max(f1, f2)
-            f0, f1, f2 = new_f0, new_f1, new_f2
-        return max(f1, f2)
+            if prices[i] + fee < buy:
+                buy = prices[i] + fee
+            elif prices[i] > buy:
+                profit += prices[i] - buy
+                buy = prices[i]
+        return profit
